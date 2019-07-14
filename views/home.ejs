@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket Io</title>
+    <script src="jquery.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <link rel="stylesheet", href="/style/trafficlight.css" />
+    <script>
+        var socketIo = io("http://localhost:3000");
+
+        
+        // socketIo.on('sendData', function(data) {
+        //     $('#sendData').append(data);
+        // });
+        $(document).ready(function() {
+            // $('#client1').click(function() {
+            //     socketIo.emit('thisIsClient1', $('#client1').text());
+            // });
+
+            $('.red').click(function() {
+                socketIo.emit('req', 'red');
+            });
+            $('.orange').click(function() {
+                socketIo.emit('req', 'orange');
+            });
+            $('.green').click(function() {
+                socketIo.emit('req', 'green');
+            });
+        });
+        socketIo.on('res', function(data) {
+            $('.' + data).addClass('display');
+        });
+        
+    </script>
+</head>
+<body>
+    
+    <div class="circle red"></div>
+    <div class="circle orange"></div>
+    <div class="circle green"></div>
+</body>
+</html>
